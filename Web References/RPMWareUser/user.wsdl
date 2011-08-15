@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://secure.rpmware.com/api" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://secure.rpmware.com/api" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="https://secure.rpmware.com/api">
+			<s:element name="AmILoggedIn">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AmILoggedInResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="AmILoggedInResult" type="tns:Result" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="Result">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="Data" />
+					<s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+					<s:element minOccurs="0" maxOccurs="1" name="Success" type="s:string" />
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ApiToken">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+					<s:element minOccurs="1" maxOccurs="1" name="TokenExpiration" type="s:dateTime" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="Login">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="LoginResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:Result" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="Logout">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="LogoutResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="LogoutResult" type="tns:Result" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="AmILoggedInSoapIn">
+		<wsdl:part name="parameters" element="tns:AmILoggedIn" />
+	</wsdl:message>
+	<wsdl:message name="AmILoggedInSoapOut">
+		<wsdl:part name="parameters" element="tns:AmILoggedInResponse" />
+	</wsdl:message>
+	<wsdl:message name="LoginSoapIn">
+		<wsdl:part name="parameters" element="tns:Login" />
+	</wsdl:message>
+	<wsdl:message name="LoginSoapOut">
+		<wsdl:part name="parameters" element="tns:LoginResponse" />
+	</wsdl:message>
+	<wsdl:message name="LogoutSoapIn">
+		<wsdl:part name="parameters" element="tns:Logout" />
+	</wsdl:message>
+	<wsdl:message name="LogoutSoapOut">
+		<wsdl:part name="parameters" element="tns:LogoutResponse" />
+	</wsdl:message>
+	<wsdl:portType name="UserSoap">
+		<wsdl:operation name="AmILoggedIn">
+			<wsdl:input message="tns:AmILoggedInSoapIn" />
+			<wsdl:output message="tns:AmILoggedInSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="Login">
+			<wsdl:input message="tns:LoginSoapIn" />
+			<wsdl:output message="tns:LoginSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="Logout">
+			<wsdl:input message="tns:LogoutSoapIn" />
+			<wsdl:output message="tns:LogoutSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="UserSoap" type="tns:UserSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="AmILoggedIn">
+			<soap:operation soapAction="https://secure.rpmware.com/api/AmILoggedIn" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Login">
+			<soap:operation soapAction="https://secure.rpmware.com/api/Login" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Logout">
+			<soap:operation soapAction="https://secure.rpmware.com/api/Logout" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="UserSoap12" type="tns:UserSoap">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="AmILoggedIn">
+			<soap12:operation soapAction="https://secure.rpmware.com/api/AmILoggedIn" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Login">
+			<soap12:operation soapAction="https://secure.rpmware.com/api/Login" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Logout">
+			<soap12:operation soapAction="https://secure.rpmware.com/api/Logout" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="User">
+		<wsdl:port name="UserSoap" binding="tns:UserSoap">
+			<soap:address location="http://secure.rpmware.com/api/user.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserSoap12" binding="tns:UserSoap12">
+			<soap12:address location="http://secure.rpmware.com/api/user.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
