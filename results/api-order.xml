@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<Result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://secure.rpmware.com/api">
+	<Data xsi:type="Order">
+		<DateAdded>2008-05-26T01:46:00</DateAdded>
+		<DateModified>2008-05-26T01:46:00</DateModified>
+		<Id>23774</Id>
+		<BillingAddress>
+			<DateAdded>2008-07-15T23:09:08</DateAdded>
+			<DateModified>2008-07-15T23:09:08</DateModified>
+			<Id>24622</Id>
+			<AccountName>Peter Piper</AccountName>
+			<City>Victoria</City>
+			<Country>CANADA</Country>
+			<FirstName>Peter</FirstName>
+			<LastName>Piper</LastName>
+			<State>British Columbia</State>
+			<StreetAddress1>123 Anytown Drive</StreetAddress1>
+			<StreetAddress2/>
+			<Zip>v9e 2h5</Zip>
+		</BillingAddress>
+		<Customer>
+			<DateAdded>2008-05-26T01:46:00</DateAdded>
+			<DateModified>2008-05-26T01:46:00</DateModified>
+			<Id>28536</Id>
+			<AccountName>Peter Piper</AccountName>
+			<Addresses/>
+			<Email>peter_piper@rpmware.com</Email>
+			<Orders/>
+			<Phone1>8478145151</Phone1>
+		</Customer>
+		<History>
+			<OrderHistory>
+				<DateAdded>2008-05-26T01:46:00</DateAdded>
+				<DateModified>2008-05-26T01:46:00</DateModified>
+				<Id>75</Id>
+				<Notes>Order Placed</Notes>
+			</OrderHistory>
+			<OrderHistory>
+				<DateAdded>2011-07-27T19:53:02</DateAdded>
+				<DateModified>2011-07-27T19:53:02</DateModified>
+				<Id>96</Id>
+				<Notes>Sample order history.</Notes>
+			</OrderHistory>
+		</History>
+		<LineItems>
+			<OrderLineItem>
+				<DateAdded>2008-05-26T01:46:00</DateAdded>
+				<DateModified>2008-05-26T01:46:00</DateModified>
+				<Id>25964</Id>
+				<BrandName>MOTUL</BrandName>
+				<ExtendedPrice>17.99</ExtendedPrice>
+				<ItemId>112636</ItemId>
+				<PartNumber>8069HC-1</PartNumber>
+				<Price>17.99</Price>
+				<ProductGroupName>MOTUL Brake Fluid - RBF 600</ProductGroupName>
+				<Quantity>1</Quantity>
+			</OrderLineItem>
+			<OrderLineItem>
+				<DateAdded>2008-05-26T01:46:00</DateAdded>
+				<DateModified>2008-05-26T01:46:00</DateModified>
+				<Id>25965</Id>
+				<BrandName>MOTUL</BrandName>
+				<ExtendedPrice>17.99</ExtendedPrice>
+				<ItemId>112636</ItemId>
+				<PartNumber>8069HC-1</PartNumber>
+				<Price>17.99</Price>
+				<ProductGroupName>MOTUL Brake Fluid - RBF 600</ProductGroupName>
+				<Quantity>1</Quantity>
+			</OrderLineItem>
+			<OrderLineItem>
+				<DateAdded>2008-05-26T01:46:00</DateAdded>
+				<DateModified>2008-05-26T01:46:00</DateModified>
+				<Id>25966</Id>
+				<BrandName>MOTUL</BrandName>
+				<ExtendedPrice>17.99</ExtendedPrice>
+				<ItemId>112636</ItemId>
+				<PartNumber>8069HC-1</PartNumber>
+				<Price>17.99</Price>
+				<ProductGroupName>MOTUL Brake Fluid - RBF 600</ProductGroupName>
+				<Quantity>1</Quantity>
+			</OrderLineItem>
+			<OrderLineItem>
+				<DateAdded>2008-05-26T01:46:00</DateAdded>
+				<DateModified>2008-05-26T01:46:00</DateModified>
+				<Id>25967</Id>
+				<BrandName>MOTUL</BrandName>
+				<ExtendedPrice>17.99</ExtendedPrice>
+				<ItemId>112636</ItemId>
+				<PartNumber>8069HC-1</PartNumber>
+				<Price>17.99</Price>
+				<ProductGroupName>MOTUL Brake Fluid - RBF 600</ProductGroupName>
+				<Quantity>1</Quantity>
+			</OrderLineItem>
+		</LineItems>
+		<OrderNo>25089</OrderNo>
+		<OrderStatus>New</OrderStatus>
+		<OrderTotal>71.96</OrderTotal>
+		<Payments>
+			<Payment>
+				<DateAdded>2008-05-26T01:45:54</DateAdded>
+				<DateModified>2008-05-26T01:45:54</DateModified>
+				<Id>36</Id>
+				<CreditCardExpirationMonth>11</CreditCardExpirationMonth>
+				<CreditCardExpirationYear>2016</CreditCardExpirationYear>
+				<CreditCardNumber>2519</CreditCardNumber>
+				<PaymentAmount>71.96</PaymentAmount>
+				<PaymentStatus>Unknown - Manual Processing</PaymentStatus>
+				<PaymentType>Credit Card</PaymentType>
+			</Payment>
+		</Payments>
+		<ShippingAddress>
+			<DateAdded>2008-07-15T23:09:08</DateAdded>
+			<DateModified>2008-07-15T23:09:08</DateModified>
+			<Id>24622</Id>
+			<AccountName>Peter Piper</AccountName>
+			<City>Victoria</City>
+			<Country>CANADA</Country>
+			<FirstName>Peter</FirstName>
+			<LastName>Piper</LastName>
+			<State>British Columbia</State>
+			<StreetAddress1>123 Anytown Drive</StreetAddress1>
+			<StreetAddress2/>
+			<Zip>v9e 2h5</Zip>
+		</ShippingAddress>
+		<ShippingAmount>0.00</ShippingAmount>
+		<ShippingMethod>UPS Next Day Air</ShippingMethod>
+		<TaxAmount>0.00</TaxAmount>
+		<TrackingNumbers>
+			<OrderTracking>
+				<DateAdded>2011-07-27T19:53:21</DateAdded>
+				<DateModified>2011-07-27T19:53:21</DateModified>
+				<Id>2</Id>
+				<Notes>Tracking notes.</Notes>
+				<ShippingMethod>UPS Next Day Air</ShippingMethod>
+				<TrackingNumber>1234567890987654321</TrackingNumber>
+			</OrderTracking>
+			<OrderTracking>
+				<DateAdded>2011-07-27T19:53:35</DateAdded>
+				<DateModified>2011-07-27T19:53:35</DateModified>
+				<Id>3</Id>
+				<Notes/>
+				<ShippingMethod>UPS Next Day Air</ShippingMethod>
+				<TrackingNumber>TRACKING1234</TrackingNumber>
+			</OrderTracking>
+		</TrackingNumbers>
+	</Data>
+	<Message/>
+	<Success>SUCCESS</Success>
+</Result>
