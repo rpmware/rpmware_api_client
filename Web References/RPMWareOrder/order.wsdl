@@ -1,538 +1,537 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://secure.rpmware.com/api" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://secure.rpmware.com/api" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-	<wsdl:types>
-		<s:schema elementFormDefault="qualified" targetNamespace="https://secure.rpmware.com/api">
-			<s:element name="AddHistory">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="orderId" type="s:int" />
-						<s:element minOccurs="0" maxOccurs="1" name="note" type="s:string" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="AddHistoryResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="AddHistoryResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:complexType name="Result">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="1" name="Data" />
-					<s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
-					<s:element minOccurs="0" maxOccurs="1" name="Success" type="s:string" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="ApiModelBase">
-				<s:sequence>
-					<s:element minOccurs="1" maxOccurs="1" name="DateAdded" type="s:dateTime" />
-					<s:element minOccurs="1" maxOccurs="1" name="DateModified" type="s:dateTime" />
-					<s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="OrderTracking">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="Notes" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="ShippingMethod" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="TrackingNumber" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="Payment">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="AuthorizationNumber" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="CreditCardExpirationMonth" type="s:int" />
-							<s:element minOccurs="1" maxOccurs="1" name="CreditCardExpirationYear" type="s:int" />
-							<s:element minOccurs="0" maxOccurs="1" name="CreditCardNumber" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="PaymentAmount" type="s:decimal" />
-							<s:element minOccurs="0" maxOccurs="1" name="PaymentStatus" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="PaymentType" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="TransactionNumber" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="OrderLineItem">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="BrandName" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="ExtendedPrice" type="s:decimal" />
-							<s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:int" />
-							<s:element minOccurs="0" maxOccurs="1" name="PartNumber" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
-							<s:element minOccurs="0" maxOccurs="1" name="ProductGroupName" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="OrderHistory">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="Notes" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="CustomerLevel">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="Customer">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="Addresses" type="tns:ArrayOfAddress" />
-							<s:element minOccurs="0" maxOccurs="1" name="CustomerLevel" type="tns:CustomerLevel" />
-							<s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="Orders" type="tns:ArrayOfOrder" />
-							<s:element minOccurs="0" maxOccurs="1" name="Phone1" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="Phone2" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="ArrayOfAddress">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="Address">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="StreetAddress1" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="StreetAddress2" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="ArrayOfOrder">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="Order" nillable="true" type="tns:Order" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="Order">
-				<s:complexContent mixed="false">
-					<s:extension base="tns:ApiModelBase">
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="1" name="BillingAddress" type="tns:Address" />
-							<s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:Customer" />
-							<s:element minOccurs="0" maxOccurs="1" name="CustomerComments" type="s:string" />
-							<s:element minOccurs="0" maxOccurs="1" name="History" type="tns:ArrayOfOrderHistory" />
-							<s:element minOccurs="0" maxOccurs="1" name="LineItems" type="tns:ArrayOfOrderLineItem" />
-							<s:element minOccurs="1" maxOccurs="1" name="OrderNo" type="s:int" />
-							<s:element minOccurs="0" maxOccurs="1" name="OrderStatus" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="OrderTotal" type="s:decimal" />
-							<s:element minOccurs="0" maxOccurs="1" name="Payments" type="tns:ArrayOfPayment" />
-							<s:element minOccurs="0" maxOccurs="1" name="ShippingAddress" type="tns:Address" />
-							<s:element minOccurs="1" maxOccurs="1" name="ShippingAmount" type="s:decimal" />
-							<s:element minOccurs="0" maxOccurs="1" name="ShippingMethod" type="s:string" />
-							<s:element minOccurs="1" maxOccurs="1" name="TaxAmount" type="s:decimal" />
-							<s:element minOccurs="0" maxOccurs="1" name="TrackingNumbers" type="tns:ArrayOfOrderTracking" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="ArrayOfOrderHistory">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="OrderHistory" nillable="true" type="tns:OrderHistory" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="ArrayOfOrderLineItem">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="OrderLineItem" nillable="true" type="tns:OrderLineItem" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="ArrayOfPayment">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="Payment" nillable="true" type="tns:Payment" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="ArrayOfOrderTracking">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="OrderTracking" nillable="true" type="tns:OrderTracking" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="ArrayOfAnyType">
-				<s:sequence>
-					<s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
-				</s:sequence>
-			</s:complexType>
-			<s:element name="AddLineItem">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="orderId" type="s:int" />
-						<s:element minOccurs="1" maxOccurs="1" name="itemId" type="s:int" />
-						<s:element minOccurs="1" maxOccurs="1" name="price" type="s:decimal" />
-						<s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:int" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="AddLineItemResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="AddLineItemResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="AddTrackingNumber">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="orderId" type="s:int" />
-						<s:element minOccurs="0" maxOccurs="1" name="shippingMethod" type="s:string" />
-						<s:element minOccurs="0" maxOccurs="1" name="trackingNumber" type="s:string" />
-						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="AddTrackingNumberResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="AddTrackingNumberResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrder">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrderResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="GetOrderResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrderIdsSinceLastOrderId">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="lastOrderId" type="s:int" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrderIdsSinceLastOrderIdResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="GetOrderIdsSinceLastOrderIdResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrders">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrdersResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="GetOrdersResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrdersByCustomer">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="customerId" type="s:int" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrdersByCustomerResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="GetOrdersByCustomerResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrdersSinceLastOrderId">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
-						<s:element minOccurs="1" maxOccurs="1" name="lastOrderId" type="s:int" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="GetOrdersSinceLastOrderIdResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" maxOccurs="1" name="GetOrdersSinceLastOrderIdResult" type="tns:Result" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-		</s:schema>
-	</wsdl:types>
-	<wsdl:message name="AddHistorySoapIn">
-		<wsdl:part name="parameters" element="tns:AddHistory" />
-	</wsdl:message>
-	<wsdl:message name="AddHistorySoapOut">
-		<wsdl:part name="parameters" element="tns:AddHistoryResponse" />
-	</wsdl:message>
-	<wsdl:message name="AddLineItemSoapIn">
-		<wsdl:part name="parameters" element="tns:AddLineItem" />
-	</wsdl:message>
-	<wsdl:message name="AddLineItemSoapOut">
-		<wsdl:part name="parameters" element="tns:AddLineItemResponse" />
-	</wsdl:message>
-	<wsdl:message name="AddTrackingNumberSoapIn">
-		<wsdl:part name="parameters" element="tns:AddTrackingNumber" />
-	</wsdl:message>
-	<wsdl:message name="AddTrackingNumberSoapOut">
-		<wsdl:part name="parameters" element="tns:AddTrackingNumberResponse" />
-	</wsdl:message>
-	<wsdl:message name="GetOrderSoapIn">
-		<wsdl:part name="parameters" element="tns:GetOrder" />
-	</wsdl:message>
-	<wsdl:message name="GetOrderSoapOut">
-		<wsdl:part name="parameters" element="tns:GetOrderResponse" />
-	</wsdl:message>
-	<wsdl:message name="GetOrderIdsSinceLastOrderIdSoapIn">
-		<wsdl:part name="parameters" element="tns:GetOrderIdsSinceLastOrderId" />
-	</wsdl:message>
-	<wsdl:message name="GetOrderIdsSinceLastOrderIdSoapOut">
-		<wsdl:part name="parameters" element="tns:GetOrderIdsSinceLastOrderIdResponse" />
-	</wsdl:message>
-	<wsdl:message name="GetOrdersSoapIn">
-		<wsdl:part name="parameters" element="tns:GetOrders" />
-	</wsdl:message>
-	<wsdl:message name="GetOrdersSoapOut">
-		<wsdl:part name="parameters" element="tns:GetOrdersResponse" />
-	</wsdl:message>
-	<wsdl:message name="GetOrdersByCustomerSoapIn">
-		<wsdl:part name="parameters" element="tns:GetOrdersByCustomer" />
-	</wsdl:message>
-	<wsdl:message name="GetOrdersByCustomerSoapOut">
-		<wsdl:part name="parameters" element="tns:GetOrdersByCustomerResponse" />
-	</wsdl:message>
-	<wsdl:message name="GetOrdersSinceLastOrderIdSoapIn">
-		<wsdl:part name="parameters" element="tns:GetOrdersSinceLastOrderId" />
-	</wsdl:message>
-	<wsdl:message name="GetOrdersSinceLastOrderIdSoapOut">
-		<wsdl:part name="parameters" element="tns:GetOrdersSinceLastOrderIdResponse" />
-	</wsdl:message>
-	<wsdl:portType name="OrderSoap">
-		<wsdl:operation name="AddHistory">
-			<wsdl:input message="tns:AddHistorySoapIn" />
-			<wsdl:output message="tns:AddHistorySoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="AddLineItem">
-			<wsdl:input message="tns:AddLineItemSoapIn" />
-			<wsdl:output message="tns:AddLineItemSoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="AddTrackingNumber">
-			<wsdl:input message="tns:AddTrackingNumberSoapIn" />
-			<wsdl:output message="tns:AddTrackingNumberSoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="GetOrder">
-			<wsdl:input message="tns:GetOrderSoapIn" />
-			<wsdl:output message="tns:GetOrderSoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="GetOrderIdsSinceLastOrderId">
-			<wsdl:input message="tns:GetOrderIdsSinceLastOrderIdSoapIn" />
-			<wsdl:output message="tns:GetOrderIdsSinceLastOrderIdSoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="GetOrders">
-			<wsdl:input message="tns:GetOrdersSoapIn" />
-			<wsdl:output message="tns:GetOrdersSoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="GetOrdersByCustomer">
-			<wsdl:input message="tns:GetOrdersByCustomerSoapIn" />
-			<wsdl:output message="tns:GetOrdersByCustomerSoapOut" />
-		</wsdl:operation>
-		<wsdl:operation name="GetOrdersSinceLastOrderId">
-			<wsdl:input message="tns:GetOrdersSinceLastOrderIdSoapIn" />
-			<wsdl:output message="tns:GetOrdersSinceLastOrderIdSoapOut" />
-		</wsdl:operation>
-	</wsdl:portType>
-	<wsdl:binding name="OrderSoap" type="tns:OrderSoap">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsdl:operation name="AddHistory">
-			<soap:operation soapAction="https://secure.rpmware.com/api/AddHistory" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="AddLineItem">
-			<soap:operation soapAction="https://secure.rpmware.com/api/AddLineItem" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="AddTrackingNumber">
-			<soap:operation soapAction="https://secure.rpmware.com/api/AddTrackingNumber" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrder">
-			<soap:operation soapAction="https://secure.rpmware.com/api/GetOrder" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrderIdsSinceLastOrderId">
-			<soap:operation soapAction="https://secure.rpmware.com/api/GetOrderIdsSinceLastOrderId" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrders">
-			<soap:operation soapAction="https://secure.rpmware.com/api/GetOrders" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrdersByCustomer">
-			<soap:operation soapAction="https://secure.rpmware.com/api/GetOrdersByCustomer" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrdersSinceLastOrderId">
-			<soap:operation soapAction="https://secure.rpmware.com/api/GetOrdersSinceLastOrderId" style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-	<wsdl:binding name="OrderSoap12" type="tns:OrderSoap">
-		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsdl:operation name="AddHistory">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/AddHistory" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="AddLineItem">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/AddLineItem" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="AddTrackingNumber">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/AddTrackingNumber" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrder">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/GetOrder" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrderIdsSinceLastOrderId">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/GetOrderIdsSinceLastOrderId" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrders">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/GetOrders" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrdersByCustomer">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/GetOrdersByCustomer" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="GetOrdersSinceLastOrderId">
-			<soap12:operation soapAction="https://secure.rpmware.com/api/GetOrdersSinceLastOrderId" style="document" />
-			<wsdl:input>
-				<soap12:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap12:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-	<wsdl:service name="Order">
-		<wsdl:port name="OrderSoap" binding="tns:OrderSoap">
-			<soap:address location="http://secure.rpmware.com/api/order.asmx" />
-		</wsdl:port>
-		<wsdl:port name="OrderSoap12" binding="tns:OrderSoap12">
-			<soap12:address location="http://secure.rpmware.com/api/order.asmx" />
-		</wsdl:port>
-	</wsdl:service>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://secure.rpmware.com/api">
+      <s:element name="AddHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="note" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddHistoryResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Data" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Success" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ApiModelBase">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DateAdded" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateModified" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderTracking">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Notes" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ShippingMethod" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TrackingNumber" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Payment">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AuthorizationNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreditCardExpirationMonth" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreditCardExpirationYear" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="CreditCardNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentAmount" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentStatus" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionNumber" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OrderLineItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="BrandName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ExtendedPrice" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PartNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductGroupName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OrderHistory">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Notes" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CustomerLevel">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Customer">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="tns:ArrayOfAddress" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomerLevel" type="tns:CustomerLevel" />
+              <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Orders" type="tns:ArrayOfOrder" />
+              <s:element minOccurs="0" maxOccurs="1" name="Phone1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Phone2" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="StreetAddress1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="StreetAddress2" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfOrder">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Order" nillable="true" type="tns:Order" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Order">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ApiModelBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="BillingAddress" type="tns:Address" />
+              <s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:Customer" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomerComments" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="History" type="tns:ArrayOfOrderHistory" />
+              <s:element minOccurs="0" maxOccurs="1" name="LineItems" type="tns:ArrayOfOrderLineItem" />
+              <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="OrderStatus" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="OrderTotal" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Payments" type="tns:ArrayOfPayment" />
+              <s:element minOccurs="0" maxOccurs="1" name="ShippingAddress" type="tns:Address" />
+              <s:element minOccurs="1" maxOccurs="1" name="ShippingAmount" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="ShippingMethod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TaxAmount" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TrackingNumbers" type="tns:ArrayOfOrderTracking" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfOrderHistory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderHistory" nillable="true" type="tns:OrderHistory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOrderLineItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderLineItem" nillable="true" type="tns:OrderLineItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPayment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Payment" nillable="true" type="tns:Payment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOrderTracking">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderTracking" nillable="true" type="tns:OrderTracking" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddLineItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="price" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddLineItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddLineItemResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddTrackingNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="shippingMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trackingNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddTrackingNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddTrackingNumberResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderIdsSinceLastOrderId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastOrderId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderIdsSinceLastOrderIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderIdsSinceLastOrderIdResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrdersResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrdersByCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="customerId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrdersByCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrdersByCustomerResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrdersSinceLastOrderId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastOrderId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrdersSinceLastOrderIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrdersSinceLastOrderIdResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:AddHistory" />
+  </wsdl:message>
+  <wsdl:message name="AddHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:AddHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddLineItemSoapIn">
+    <wsdl:part name="parameters" element="tns:AddLineItem" />
+  </wsdl:message>
+  <wsdl:message name="AddLineItemSoapOut">
+    <wsdl:part name="parameters" element="tns:AddLineItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddTrackingNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:AddTrackingNumber" />
+  </wsdl:message>
+  <wsdl:message name="AddTrackingNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:AddTrackingNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrder" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderIdsSinceLastOrderIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderIdsSinceLastOrderId" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderIdsSinceLastOrderIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderIdsSinceLastOrderIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrders" />
+  </wsdl:message>
+  <wsdl:message name="GetOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrdersByCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrdersByCustomer" />
+  </wsdl:message>
+  <wsdl:message name="GetOrdersByCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrdersByCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrdersSinceLastOrderIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrdersSinceLastOrderId" />
+  </wsdl:message>
+  <wsdl:message name="GetOrdersSinceLastOrderIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrdersSinceLastOrderIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OrderSoap">
+    <wsdl:operation name="AddHistory">
+      <wsdl:input message="tns:AddHistorySoapIn" />
+      <wsdl:output message="tns:AddHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddLineItem">
+      <wsdl:input message="tns:AddLineItemSoapIn" />
+      <wsdl:output message="tns:AddLineItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTrackingNumber">
+      <wsdl:input message="tns:AddTrackingNumberSoapIn" />
+      <wsdl:output message="tns:AddTrackingNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrder">
+      <wsdl:input message="tns:GetOrderSoapIn" />
+      <wsdl:output message="tns:GetOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderIdsSinceLastOrderId">
+      <wsdl:input message="tns:GetOrderIdsSinceLastOrderIdSoapIn" />
+      <wsdl:output message="tns:GetOrderIdsSinceLastOrderIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrders">
+      <wsdl:input message="tns:GetOrdersSoapIn" />
+      <wsdl:output message="tns:GetOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByCustomer">
+      <wsdl:input message="tns:GetOrdersByCustomerSoapIn" />
+      <wsdl:output message="tns:GetOrdersByCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersSinceLastOrderId">
+      <wsdl:input message="tns:GetOrdersSinceLastOrderIdSoapIn" />
+      <wsdl:output message="tns:GetOrdersSinceLastOrderIdSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderSoap" type="tns:OrderSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddHistory">
+      <soap:operation soapAction="https://secure.rpmware.com/api/AddHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddLineItem">
+      <soap:operation soapAction="https://secure.rpmware.com/api/AddLineItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTrackingNumber">
+      <soap:operation soapAction="https://secure.rpmware.com/api/AddTrackingNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrder">
+      <soap:operation soapAction="https://secure.rpmware.com/api/GetOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderIdsSinceLastOrderId">
+      <soap:operation soapAction="https://secure.rpmware.com/api/GetOrderIdsSinceLastOrderId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrders">
+      <soap:operation soapAction="https://secure.rpmware.com/api/GetOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByCustomer">
+      <soap:operation soapAction="https://secure.rpmware.com/api/GetOrdersByCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersSinceLastOrderId">
+      <soap:operation soapAction="https://secure.rpmware.com/api/GetOrdersSinceLastOrderId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OrderSoap12" type="tns:OrderSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddHistory">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/AddHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddLineItem">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/AddLineItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTrackingNumber">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/AddTrackingNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrder">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/GetOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderIdsSinceLastOrderId">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/GetOrderIdsSinceLastOrderId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrders">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/GetOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByCustomer">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/GetOrdersByCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersSinceLastOrderId">
+      <soap12:operation soapAction="https://secure.rpmware.com/api/GetOrdersSinceLastOrderId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Order">
+    <wsdl:port name="OrderSoap" binding="tns:OrderSoap">
+      <soap:address location="http://secure.rpmware.com/api/order.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OrderSoap12" binding="tns:OrderSoap12">
+      <soap12:address location="http://secure.rpmware.com/api/order.asmx" />
+    </wsdl:port>
+  </wsdl:service>
 </wsdl:definitions>
