@@ -59,7 +59,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Web References\RPMWareUser\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -77,7 +76,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\RPMWareOrder\order.wsdl" />
+    <None Include="Web References\RPMWareOrder\order.wsdl">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\RPMWareOrder\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
