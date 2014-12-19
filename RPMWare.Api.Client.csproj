@@ -96,10 +96,10 @@
     <None Include="Web References\RPMWareUser\user.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://secure.rpmware.com/api/order.asmx%3fWSDL">
+    <WebReferenceUrl Include="https://secure.rpmware.com/api/order.asmx%3fWSDL">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\RPMWareOrder\</RelPath>
-      <UpdateFromURL>http://secure.rpmware.com/api/order.asmx%3fWSDL</UpdateFromURL>
+      <UpdateFromURL>https://secure.rpmware.com/api/order.asmx%3fWSDL</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -107,10 +107,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>RPMWare_Api_Client_RPMWareOrder_Order</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://secure.rpmware.com/api/user.asmx%3fWSDL">
+    <WebReferenceUrl Include="https://secure.rpmware.com/api/user.asmx%3fWSDL">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\RPMWareUser\</RelPath>
-      <UpdateFromURL>http://secure.rpmware.com/api/user.asmx%3fWSDL</UpdateFromURL>
+      <UpdateFromURL>https://secure.rpmware.com/api/user.asmx%3fWSDL</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
