@@ -1,0 +1,48 @@
+﻿# Auto detect text files and perform LF normalization
+* text=auto
+
+*.asax text
+*.ascx text
+*.asmx text
+*.aspx text
+*.bak binary
+*.bat text eol=crlf
+*.browser text eol=crlf
+*.build text
+*.chm text
+*.conf text
+*.config text
+*.cs text
+*.cshtml text
+*.csproj text eol=crlf
+*.css text
+*.dgml text eol=crlf
+*.dll binary
+*.dotsettings text eol=crlf
+*.editorconfig text
+*.exe binary
+*.gif binary
+*.htm text
+*.html text
+*.ico binary
+*.jpg binary
+*.js text
+*.map text
+*.markdown text
+*.master text
+*.msi binary
+*.png binary
+*.resharper text eol=crlf
+*.resx text eol=crlf
+*.settings text eol=crlf
+*.skin text eol=crlf
+*.sln text eol=crlf
+*.sql text
+*.swf binary
+*.targets text
+*.template text
+*.txt text
+*.vm text
+*.xml text
+*.xsd text
+*.xsl text
