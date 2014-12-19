@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://secure.rpmware.com/api" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://secure.rpmware.com/api" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://secure.rpmware.com/api" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://secure.rpmware.com/api" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="https://secure.rpmware.com/api">
       <s:element name="AddHistory">
@@ -140,6 +140,8 @@
           <s:extension base="tns:ApiModelBase">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="BillingAddress" type="tns:Address" />
+              <s:element minOccurs="0" maxOccurs="1" name="CouponCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CouponName" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:Customer" />
               <s:element minOccurs="0" maxOccurs="1" name="CustomerComments" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="History" type="tns:ArrayOfOrderHistory" />
@@ -175,6 +177,11 @@
       <s:complexType name="ArrayOfOrderTracking">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="OrderTracking" nillable="true" type="tns:OrderTracking" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfAnyType">
@@ -528,10 +535,10 @@
   </wsdl:binding>
   <wsdl:service name="Order">
     <wsdl:port name="OrderSoap" binding="tns:OrderSoap">
-      <soap:address location="http://secure.rpmware.com/api/order.asmx" />
+      <soap:address location="https://secure.rpmware.com/api/order.asmx" />
     </wsdl:port>
     <wsdl:port name="OrderSoap12" binding="tns:OrderSoap12">
-      <soap12:address location="http://secure.rpmware.com/api/order.asmx" />
+      <soap12:address location="https://secure.rpmware.com/api/order.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
